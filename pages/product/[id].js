@@ -4,3 +4,4 @@ export default function tutu() {
     <div>single oage</div>
   )
 }
+

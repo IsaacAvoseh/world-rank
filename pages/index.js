@@ -3,32 +3,82 @@ import { BiSort } from "react-icons/bi";
 import { Box, Container, InputGroup, Stack, InputLeftElement, Input, Text, HStack, Spacer, Table, Thead, Th, Tr, Tbody, Divider } from "@chakra-ui/react";
 import Nav from "../components/Nav";
 import Row from "../components/Row";
+import { useState, useRef } from "react";
 
 
-const orderBy = (countries, direction) => {
+const orderBy = (countries, value, direction) => {
   if (direction === "asc") {
-    return countries.sort((a, b) => a.population - b.population);
+    return [...countries].sort((a, b) => a[value] > b[value] ? 1 : -1);
   }
-  return countries.sort((a, b) => b.population - a.population);
-};
-
+    return [...countries].sort((a, b) => a[value] > b[value] ? 1 : -1);
+}
 
 // const orderBy = (countries) => {
 //   return countries.sort((a, b) => {
 //     a.population > b.population ? 1 : -1;
 //   });
 // };
+
 export default function Country( { countries } ) {
+  const [ countryList, setCountryList] = useState(countries);
+
+  if (typeof window !== "undefined") {
+
+    localStorage.setItem('countries', JSON.stringify(countries))
+
+  }
+  const [ keyword, setKeyword ] = useState("")
+  const inputRef = useRef(null)
+
+
+  const searchByKeyword = (keyword) => {
+    const filtered = countries.filter(country => country.name.common.toLowerCase().includes(keyword.toLowerCase()))
+    setCountryList(filtered)
+  }
+
+  const handleKeywordChange = (e) => {
+    setKeyword(e.target.value)
+    searchByKeyword(e.target.value)
+  }
+
+
    console.log('countries', countries)
 
-   const orderByCountry = orderBy(countries, 'asc')
+   const orderByGini = () => {
+     console.log('orderByGini')
+     let newSort = orderBy(countries, countries.gini, 'asc')
+    console.log('New Sort' ,newSort)
+  return setCountryList(newSort)  
+}
 
+const orderByPopulation = () => {
+  console.log('orderByPopulation')
+  let newSort = orderBy(countries, countries.population, 'asc')
+  console.log('New Sort' ,newSort)
+return setCountryList(newSort)
+}
 
+const orderByArea = () => {
+  console.log('orderByArea')
+  let newSort = orderBy(countries, countries.area, 'asc')
+  console.log('New Sort' ,newSort)
+return setCountryList(newSort)
+}
+
+const orderByName = () => {
+  console.log('orderByName')
+  let newSort = orderBy(countries, countries?.name?.common, 'desc')
+  console.log('New Sort', countries?.name ,newSort)
+return setCountryList(newSort)
+}
+
+    
 
   return (
     <Box as={'section'} minH='100vh' overflow={'hidden'} bg='#E5E5E5' >
       <Nav />
     <Stack>
+        {/* <a href="tel:+6494461709">Telephone</a> */}
         <HStack m={10}> <Text color={'gray.400'}>Found { countries.length } countries</Text> 
         <Spacer/>
          <InputGroup w={'30%'}>
@@ -36,7 +86,7 @@ export default function Country( { countries } ) {
             pointerEvents='none'
             children={<Search2Icon color='gray.300' />}
           />
-          <Input type='text' placeholder='Search by Name, Region and Subregion' variant={'filled'}/>
+            <Input type='text' ref={inputRef} autoFocus='autoFocus' onChange={handleKeywordChange} value={keyword} placeholder='Search by Name, Region and Subregion' variant={'filled'}/>
         </InputGroup>
         
         </HStack>
@@ -46,16 +96,16 @@ export default function Country( { countries } ) {
       <Table variant={'simple'}>
           <Thead>
             <Tr>
-              <Th><HStack><Text>Name</Text> <BiSort /></HStack></Th>
-              <Th><HStack><Text>Population</Text> <BiSort /> </HStack></Th>
-              <Th><HStack><Text>Area(km)</Text><BiSort /></HStack></Th>
-              <Th><HStack><Text>Gini</Text><BiSort /> </HStack></Th>
+              <Th><HStack><Text>Name</Text> <BiSort onClick={orderByName} size={'15px'} /></HStack></Th>
+              <Th><HStack><Text>Population</Text> <BiSort onClick={orderByPopulation} /> </HStack></Th>
+              <Th><HStack><Text>Area(km)</Text><BiSort  onClick={ orderByArea } /></HStack></Th>
+              <Th><HStack><Text>Gini</Text><BiSort onClick={orderByGini} /> </HStack></Th>
             </Tr>
           </Thead>
           
         
          {
-           countries?.map(country => {
+           countryList?.slice(0, 15).map(country => {
            
           
              return (<>
