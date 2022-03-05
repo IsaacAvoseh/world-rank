@@ -104,7 +104,7 @@ return setCountryList(newSort)
         
          {
           
-          countryList.length > 0 ? 
+          countryList?.length > 0 ? 
               countryList?.slice(0, 15).map(country => {
                 return (
                 <>
