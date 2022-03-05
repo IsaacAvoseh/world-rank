@@ -9,30 +9,29 @@ import { useEffect, useState } from "react";
 import Nav from "../components/Nav";
 
 
+const getBorderCountry = async (country) => {
+    // let result = []
+
+    let res = await 
+        fetch(`https://restcountries.com/v3.1/alpha/${country}`)
+            let data = await res.json()
+                console.log(data)
+            //    result.push(data)
+
+    // console.log('result', result)
+    return data
+}
+
 export default function Country({ country }) {
 
     const [ border, setBorder] = useState([])
     console.log('bbbbbb',border)
 
-    const getBorderCountry = async () => {    
-        let result = []
-    
-       await country[0]?.borders?.map(border => {
-            fetch(`https://restcountries.com/v3.1/alpha/${border}`)
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data)
-                    result.push(...data)
-                })
-        })
-
-        console.log('result', result)
-        setBorder(result)
-        return result
-    }
 
     useEffect(() => {
-        getBorderCountry()
+       let fn = country[0].borders.map(bord => getBorderCountry(bord))
+       setBorder(fn)
+       console.log('borderfm', fn)
     }, [])
 
 
@@ -88,6 +87,7 @@ export default function Country({ country }) {
                         </Flex>
                     </HStack>
                     <Divider h={2} />
+                        <Text mt={7} color='gray.500'>Neighbouring Countries</Text>
 
                     <HStack justifyContent={'flex-start'} alignItems='flex-start' mt={5} >
                         {
@@ -96,9 +96,8 @@ export default function Country({ country }) {
                             border.map(country => {
                                 return (
                                     <Box key={country.name}>
-                                            <Text mt={7} color='gray.500'>Neighbouring Countries</Text>
-                                            <Image src={country.flags.png}></Image>
-                                            <Heading size={'sm'}>{country.name.common}</Heading>
+                                            <Image src={country.flags?.png}></Image>
+                                            <Heading size={'sm'}>{country.name?.common}</Heading>
                                         </Box>
                                     )
                                 }
