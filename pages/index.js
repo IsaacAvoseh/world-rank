@@ -17,7 +17,7 @@ const orderBy = (countries, value, direction) => {
 export default function Country( { countries } ) {
  
   let all = typeof window !== "undefined" ? JSON.parse(localStorage.getItem('countries')) : countries;
-  const [ countryList, setCountryList] = useState(all);
+  const [ countryList, setCountryList] = useState(countries);
   console.log('all', all)
 
   const [ keyword, setKeyword ] = useState("")
