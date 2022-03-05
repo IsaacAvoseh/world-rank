@@ -76,7 +76,7 @@ return setCountryList(newSort)
       <Nav />
     <Stack>
   
-        <HStack m={10}> <Text color={'gray.400'}>Found { all?.length } countries</Text> 
+        <HStack m={10}> <Text color={'gray.400'}>Found { countries?.length } countries</Text> 
         <Spacer/>
          <InputGroup w={'30%'}>
           <InputLeftElement
