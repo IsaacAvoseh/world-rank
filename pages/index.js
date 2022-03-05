@@ -13,18 +13,9 @@ const orderBy = (countries, value, direction) => {
     return [...countries].sort((a, b) => a[value] > b[value] ? 1 : -1);
 }
 
-// const orderBy = (countries) => {
-//   return countries.sort((a, b) => {
-//     a.population > b.population ? 1 : -1;
-//   });
-// };
 
 export default function Country( { countries } ) {
-  // if (typeof window !== "undefined") {
-
-  //   localStorage.setItem('countries', JSON.stringify(countries))
-
-  // }
+ 
   let all = typeof window !== "undefined" ? JSON.parse(localStorage.getItem('countries')) : [];
   const [ countryList, setCountryList] = useState(all);
   console.log('all', all)
@@ -123,10 +114,7 @@ return setCountryList(newSort)
               
           ): 'No result'
          }
-          {/* <Row image={'/country/india.png'} gini={30} name={'India'} population={'1,439,323,776'} area={'9, 388, 211'} ></Row> 
-          <Divider h={5} />
-          <Row image={'/country/us.png'} gini={100} name={'USA'} population={'1,439,323,776'} area={'9,388,211	'} ></Row> 
-    */}
+      
       </Table>
     </Box>
 

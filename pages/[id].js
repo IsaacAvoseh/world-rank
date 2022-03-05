@@ -31,7 +31,6 @@ export default function Country({ country }) {
     useEffect(() => {
        let fn = country[0]?.borders?.map(bord => getBorderCountry(bord))
        setBorder(fn)
-       console.log('borderfm', fn)
     }, [])
 
 

@@ -21,7 +21,7 @@ import {
 import Link from 'next/link'
 
 
-export default function Row({ country, image, population, area, name, gini }) {
+export default function Row({ country }) {
     // const { population } = country
     // console.log(country.g[Object.keys(country.gini)[0]])
     
@@ -42,7 +42,7 @@ export default function Row({ country, image, population, area, name, gini }) {
                   <Td> {country.area} </Td>
                   <Td>
                       <Flex>
-                          <Slider aria-label='slider-ex-1' value={gini = country?.gini?.[Object.keys(country?.gini)[0]]} colorScheme='teal' mx={5} >
+                          <Slider aria-label='slider-ex-1' value={country?.gini?.[Object.keys(country?.gini)[0]]} colorScheme='teal' mx={5} >
                               <SliderTrack>
                                   <SliderFilledTrack />
                               </SliderTrack>
