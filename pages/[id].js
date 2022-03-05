@@ -91,7 +91,7 @@ export default function Country({ country }) {
                     <HStack justifyContent={'flex-start'} alignItems='flex-start' mt={5} >
                         {
                             
-                            border.length > 0 ?
+                            border?.length > 0 ?
                             border.map(country => {
                                 return (
                                     <Box key={country.name}>

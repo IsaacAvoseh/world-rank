@@ -80,9 +80,10 @@ return setCountryList(newSort)
         <Spacer/>
          <InputGroup w={'30%'}>
           <InputLeftElement
-            pointerEvents='none'
-            children={<Search2Icon color='gray.300' />}
-          />
+            pointerEvents='none'>
+        
+            <Search2Icon color='gray.300' />
+            </InputLeftElement>
             <Input type='text' ref={inputRef} autoFocus='autoFocus' onChange={handleKeywordChange} value={keyword} placeholder='Search by Name, Region and Subregion' variant={'filled'}/>
         </InputGroup>
         
