@@ -21,13 +21,13 @@ export default function Country( { countries } ) {
   console.log('all', all)
 
   const [ keyword, setKeyword ] = useState("")
-  const inputRef = useRef(null)
+  // const inputRef = useRef(null)
 
 
   const searchByKeyword = (keyword) => {
     const filtered = all?.filter(country => country.name.common.toLowerCase().includes(keyword.toLowerCase()) || country.name.official.toLowerCase().includes(keyword.toLowerCase()) ||
     country.continents?.[0].toLowerCase().includes(keyword.toLowerCase()))
-    if (filtered && filtered.length > 0) {
+    if (filtered && filtered?.length > 0) {
       setCountryList(filtered)
     }
 // setCountryList(all)
@@ -84,7 +84,7 @@ return setCountryList(newSort)
         
             <Search2Icon color='gray.300' />
             </InputLeftElement>
-            <Input type='text' ref={inputRef} autoFocus='autoFocus' onChange={handleKeywordChange} value={keyword} placeholder='Search by Name, Region and Subregion' variant={'filled'}/>
+            <Input type='text' autoFocus='autoFocus' onChange={handleKeywordChange} value={keyword} placeholder='Search by Name, Region and Subregion' variant={'filled'}/>
         </InputGroup>
         
         </HStack>
