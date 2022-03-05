@@ -27,7 +27,7 @@ export default function Row({ country, image, population, area, name, gini }) {
     
   return (   
       <Tbody>
-          <Link href={`/${country.name.common}`} >
+          <Link href={`/${country?.name?.common}`} >
           <Tr bg={'white'}
           transition='all 0.2s ease-in-out'
            _hover={{
@@ -36,13 +36,13 @@ export default function Row({ country, image, population, area, name, gini }) {
           }}>
                  
                   <Td>
-                      <HStack><Img w={'50px'} h='37px' src={country.flags.png}></Img> <Text>{country.name.common}</Text>
+                      <HStack><Img w={'50px'} h='37px' src={country?.flags?.png}></Img> <Text>{country?.name?.common}</Text>
                   </HStack></Td>
                   <Td>{country.population}</Td>
                   <Td> {country.area} </Td>
                   <Td>
                       <Flex>
-                          <Slider aria-label='slider-ex-1' value={gini = country.gini?.[Object.keys(country.gini)[0]]} colorScheme='teal' mx={5} >
+                          <Slider aria-label='slider-ex-1' value={gini = country?.gini?.[Object.keys(country?.gini)[0]]} colorScheme='teal' mx={5} >
                               <SliderTrack>
                                   <SliderFilledTrack />
                               </SliderTrack>

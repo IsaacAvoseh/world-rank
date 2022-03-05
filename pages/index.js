@@ -20,20 +20,26 @@ const orderBy = (countries, value, direction) => {
 // };
 
 export default function Country( { countries } ) {
-  const [ countryList, setCountryList] = useState(countries);
+  // if (typeof window !== "undefined") {
 
-  if (typeof window !== "undefined") {
+  //   localStorage.setItem('countries', JSON.stringify(countries))
 
-    localStorage.setItem('countries', JSON.stringify(countries))
+  // }
+  let all = typeof window !== "undefined" ? JSON.parse(localStorage.getItem('countries')) : [];
+  const [ countryList, setCountryList] = useState(all);
+  console.log('all', all)
 
-  }
   const [ keyword, setKeyword ] = useState("")
   const inputRef = useRef(null)
 
 
   const searchByKeyword = (keyword) => {
-    const filtered = countries.filter(country => country.name.common.toLowerCase().includes(keyword.toLowerCase()))
-    setCountryList(filtered)
+    const filtered = all?.filter(country => country.name.common.toLowerCase().includes(keyword.toLowerCase()) || country.name.official.toLowerCase().includes(keyword.toLowerCase()) ||
+    country.continents?.[0].toLowerCase().includes(keyword.toLowerCase()))
+    if (filtered && filtered.length > 0) {
+      setCountryList(filtered)
+    }
+// setCountryList(all)
   }
 
   const handleKeywordChange = (e) => {
@@ -78,8 +84,8 @@ return setCountryList(newSort)
     <Box as={'section'} minH='100vh' overflow={'hidden'} bg='#E5E5E5' >
       <Nav />
     <Stack>
-        {/* <a href="tel:+6494461709">Telephone</a> */}
-        <HStack m={10}> <Text color={'gray.400'}>Found { countries.length } countries</Text> 
+  
+        <HStack m={10}> <Text color={'gray.400'}>Found { all?.length } countries</Text> 
         <Spacer/>
          <InputGroup w={'30%'}>
           <InputLeftElement
@@ -105,16 +111,17 @@ return setCountryList(newSort)
           
         
          {
-           countryList?.slice(0, 15).map(country => {
-           
           
-             return (<>
-               <Row country={country} />
-               <Divider h={5} />
-             </>)
-           }
-            )
-
+          countryList.length > 0 ? 
+              countryList?.slice(0, 15).map(country => {
+                return (
+                <>
+                    <Row country={country} />
+                    <Divider h={5} />
+                </>)
+              }
+              
+          ): 'No result'
          }
           {/* <Row image={'/country/india.png'} gini={30} name={'India'} population={'1,439,323,776'} area={'9, 388, 211'} ></Row> 
           <Divider h={5} />
@@ -127,7 +134,7 @@ return setCountryList(newSort)
     )
 }
 
-export const getStaticProps = async () => {
+export const getInitialProps = async () => {
   const res = await fetch('https://restcountries.com/v3.1/all')
   const countries = await res.json()
   console.log(' getting countries', countries)

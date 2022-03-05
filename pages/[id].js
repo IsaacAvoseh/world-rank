@@ -29,7 +29,7 @@ export default function Country({ country }) {
 
 
     useEffect(() => {
-       let fn = country[0].borders.map(bord => getBorderCountry(bord))
+       let fn = country[0]?.borders?.map(bord => getBorderCountry(bord))
        setBorder(fn)
        console.log('borderfm', fn)
     }, [])
@@ -61,15 +61,15 @@ export default function Country({ country }) {
                 <Box shadow={'md'} direction={'column'} flex={2} px={10}>
                     <Heading size={'md'}> Details </Heading>
                     <Divider />
-                    <HStack mt={5}> <Text color='gray.500'>Capital</Text> <Spacer /> <Heading size={'md'} > { country[0].capital[0] } </Heading> </HStack>
+                    <HStack mt={5}> <Text color='gray.500'>Capital</Text> <Spacer /> <Heading size={'md'} > { country[0]?.capital?.[0] } </Heading> </HStack>
                     <Divider h={2} />
                     <HStack mt={5}> <Text color='gray.500'>Subregion</Text> <Spacer /> <Heading size={'md'} > {country[0].subregion}</Heading> </HStack>
                     <Divider h={2} />
-                    <HStack mt={5}> <Text color='gray.500' >Languages</Text> <Spacer /> <Heading size={'md'} > {country[0].languages[Object.keys(country[0].languages)[0]]} {country?.[1]?.languages[Object.keys(country[0].languages)[0]]} </Heading> </HStack>
+                    <HStack mt={5}> <Text color='gray.500' >Languages</Text> <Spacer /> <Heading size={'md'} > {country[0].languages[Object.keys(country[0]?.languages)[0]]} {country?.[1]?.languages[Object.keys(country[0]?.languages)[0]]} </Heading> </HStack>
                     <Divider h={2} />
                     <HStack mt={5}> <Text color='gray.500'>Currencies</Text> <Spacer /> <Heading size={'md'} >  {country[0].currencies[Object.keys(country[0].currencies)[0]].name} </Heading> </HStack>
                     <Divider h={2} />
-                    <HStack mt={5}> <Text color='gray.500'>Officcial Name</Text> <Spacer /> <Heading size={'md'} > { country[0].name.official } </Heading>
+                    <HStack mt={5}> <Text color='gray.500'>Official Name</Text> <Spacer /> <Heading size={'md'} > { country[0].name.official } </Heading>
                     </HStack>
 
                     <HStack mt={5}> <Text color='gray.500'>Gini</Text> <Spacer /> 
@@ -87,7 +87,7 @@ export default function Country({ country }) {
                         </Flex>
                     </HStack>
                     <Divider h={2} />
-                        <Text mt={7} color='gray.500'>Neighbouring Countries</Text>
+                        <Text mt={7} color='gray.500'>Neighboring Countries</Text>
 
                     <HStack justifyContent={'flex-start'} alignItems='flex-start' mt={5} >
                         {
@@ -101,7 +101,7 @@ export default function Country({ country }) {
                                         </Box>
                                     )
                                 }
-                                ): ''
+                                ): ('No Neighboring Countries')
                             
 
 
