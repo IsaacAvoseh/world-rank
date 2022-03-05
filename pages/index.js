@@ -25,7 +25,7 @@ export default function Country( { countries } ) {
 
 
   const searchByKeyword = (keyword) => {
-    const filtered = all?.filter(country => country.name.common.toLowerCase().includes(keyword.toLowerCase()) || country.name.official.toLowerCase().includes(keyword.toLowerCase()) ||
+    const filtered = countries?.filter(country => country.name.common.toLowerCase().includes(keyword.toLowerCase()) || country.name.official.toLowerCase().includes(keyword.toLowerCase()) ||
     country.continents?.[0].toLowerCase().includes(keyword.toLowerCase()))
     if (filtered && filtered?.length > 0) {
       setCountryList(filtered)
